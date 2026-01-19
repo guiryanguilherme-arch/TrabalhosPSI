@@ -31,7 +31,7 @@ def gerar_sigla(nome):
             sigla += palavra[1].lower()
         else:
             sigla += palavra[0].upper()
-
+#se a palavra em cima so tiver uma letra entra no else e vira maiuscula esta letra
     sigla += str(len(palavras))
     sigla += "!"
 
@@ -41,14 +41,15 @@ def gerar_sigla(nome):
 # FUNÇÃO: GERAR PASSWORD (simples mas forte)
 # -------------------------------------------------
 def gerar_password(resposta):
-    texto = resposta.replace(" ", "")
-    password = ""
+    texto = resposta.replace(" ", "") #vai tirar os espaços
+    password = "" # e substituir por nada
 
     for letra in texto:
-        if letra.lower() in "aeiou":
+        if letra.lower() in "aeiou": #se for vogal transforma a letra em minuscula
             password += letra.upper()
         else:
-            password += letra.lower()
+            password += letra.lower() #senao  for a letra vogal fica
+            # em minuscukla
 
     password += str(len(texto))
     password += "#"
