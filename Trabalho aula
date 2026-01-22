@@ -1,0 +1,25 @@
+print("=== Estatísticas das Notas ===")
+
+quantidade = int(input("Quantas notas quer inserir? "))
+
+notas = []
+
+
+for i in range(quantidade):
+    while True:
+        nota = float(input("Insira uma nota (0 a 20): "))
+        if 0 <= nota <= 20:
+            notas.append(nota)
+            break
+        else:
+            print("Nota inválida. Tente novamente.")
+
+print("\nResultados:")
+print("Notas inseridas:", notas)
+print("Nota mais alta:", max(notas))
+print("Nota mais baixa:", min(notas))
+print("Média:", sum(notas) / len(notas))
+
+# Extras simples
+print("Total de notas:", len(notas))
+print("Soma das notas:", sum(notas))
