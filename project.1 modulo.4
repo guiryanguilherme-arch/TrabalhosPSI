@@ -45,8 +45,8 @@ def gerar_password(resposta):
     password = "" # e substituir por nada
 
     for letra in texto:
-        if letra.lower() in "aeiou": #se for vogal transforma a letra em minuscula
-            password += letra.upper()
+        if letra.lower() in "aeiou":
+            password += letra.upper() #se for vogal transforma a letra em maiuscula
         else:
             password += letra.lower() #senao  for a letra vogal fica
             # em minuscukla
@@ -63,19 +63,20 @@ def verificar_forca(password):
     tem_maiuscula = False
     tem_minuscula = False
     tem_numero = False
-    tem_simbolo = False
-
+    tem_simbolo = False #As variáveis começam como False porque o
+    # programa ainda não verificou nenhum caractere da password
+ #
     for c in password:
-        if c.isupper():
+        if c.isupper():#verifica se te maiuscula
             tem_maiuscula = True
-        elif c.islower():
+        elif c.islower():#verifica se tem minuscula
             tem_minuscula = True
-        elif c.isdigit():
+        elif c.isdigit():#verifica se tem numero
             tem_numero = True
-        else:
+        else: #tudo que sobra e simbolo
             tem_simbolo = True
 
-    tamanho = len(password)
+    tamanho = len(password) #guarda o tamanho da password
 
     if tamanho >= 10 and tem_maiuscula and tem_minuscula and tem_numero and tem_simbolo:
         return "FORTE"
@@ -166,3 +167,4 @@ def main():
 # -------------------------------------------------
 if __name__ == "__main__":
     main()
+
