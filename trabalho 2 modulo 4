@@ -1,0 +1,167 @@
+print("==========================================")
+print("      CARTÓRIO DIGITAL - GESTOR DE NOMES")
+print("==========================================")
+print(" Sistema de registo de cidadãos imigrantes")
+print("==========================================")
+
+# -------------------------------------------------
+# LISTA PRINCIPAL COM 10 CIDADÃOS REGISTADOS
+# -------------------------------------------------
+
+cidadaos = [
+    {"nome": "João Silva", "nascimento": "10/02/2006", "pais": "Portugal"},
+    {"nome": "Maria Costa", "nascimento": "15/07/2005", "pais": "Brasil"},
+    {"nome": "Pedro Fernandes", "nascimento": "22/11/2004", "pais": "Angola"},
+    {"nome": "Ana Rodrigues", "nascimento": "01/03/2007", "pais": "Portugal"},
+    {"nome": "Carlos Mendes", "nascimento": "18/09/2003", "pais": "Cabo Verde"},
+    {"nome": "Beatriz Santos", "nascimento": "30/12/2006", "pais": "Moçambique"},
+    {"nome": "Tiago Pereira", "nascimento": "25/05/2005", "pais": "Portugal"},
+    {"nome": "Inês Almeida", "nascimento": "08/08/2004", "pais": "Brasil"},
+    {"nome": "Rui Oliveira", "nascimento": "14/04/2007", "pais": "Guiné-Bissau"},
+    {"nome": "Sofia Martins", "nascimento": "19/01/2006", "pais": "Portugal"}
+]
+
+# -------------------------------------------------
+# FUNÇÃO: MOSTRAR MENU
+# -------------------------------------------------
+
+def mostrar_menu():
+    print("\n=========== MENU DO CARTÓRIO ===========")
+    print("1 - Adicionar novo cidadão")
+    print("2 - Remover cidadão")
+    print("3 - Listar todos os cidadãos")
+    print("4 - Procurar cidadão pelo nome")
+    print("5 - Mostrar cidadãos por ordem alfabética")
+    print("6 - Mostrar total de registos")
+    print("7 - Sair")
+    print("=======================================")
+
+# -------------------------------------------------
+# FUNÇÃO: ADICIONAR CIDADÃO
+# -------------------------------------------------
+
+def adicionar_cidadao():
+    nome = input("Nome completo: ")
+    nascimento = input("Data de nascimento (dd/mm/aaaa): ")
+    pais = input("País de origem: ")
+
+    pessoa = {"nome": nome, "nascimento": nascimento, "pais": pais}
+    cidadaos.append(pessoa)
+
+    print("✅ Cidadão registado com sucesso!")
+
+# -------------------------------------------------
+# FUNÇÃO: REMOVER CIDADÃO
+# -------------------------------------------------
+
+def remover_cidadao():
+    nome = input("Digite o nome do cidadão a remover: ")
+
+    for pessoa in cidadaos:
+        if pessoa["nome"].lower() == nome.lower():
+            cidadaos.remove(pessoa)
+            print("✅ Cidadão removido com sucesso!")
+            return
+
+    print("❌ Cidadão não encontrado.")
+
+# -------------------------------------------------
+# FUNÇÃO: LISTAR CIDADÃOS
+# -------------------------------------------------
+
+def listar_cidadaos():
+    if len(cidadaos) == 0:
+        print("Nenhum cidadão registado.")
+        return
+
+    print("\n📌 LISTA DE CIDADÃOS REGISTADOS:")
+    for pessoa in cidadaos:
+        print("-----------------------------------")
+        print("Nome:", pessoa["nome"])
+        print("Nascimento:", pessoa["nascimento"])
+        print("País:", pessoa["pais"])
+
+# -------------------------------------------------
+# FUNÇÃO: PROCURAR CIDADÃO
+# -------------------------------------------------
+
+def procurar_cidadao():
+    termo = input("Digite o nome ou parte do nome: ")
+
+    encontrados = False
+
+    for pessoa in cidadaos:
+        if termo.lower() in pessoa["nome"].lower():
+            print("\n✅ Encontrado:")
+            print("Nome:", pessoa["nome"])
+            print("Nascimento:", pessoa["nascimento"])
+            print("País:", pessoa["pais"])
+            encontrados = True
+
+    if not encontrados:
+        print("❌ Nenhum cidadão encontrado.")
+
+# -------------------------------------------------
+# FUNÇÃO: ORDENAR POR NOME
+# -------------------------------------------------
+def ordenar_alfabetico():
+    nomes = []
+
+    for pessoa in cidadaos:
+        nomes.append(pessoa["nome"])
+
+    nomes.sort()
+
+    print("\nCIDADÃOS EM ORDEM ALFABÉTICA:")
+    for nome in nomes:
+        print("-", nome)
+
+
+# ------------------5
+# -------------------------------
+# FUNÇÃO: TOTAL DE REGISTOS
+# -------------------------------------------------
+
+def total_registos():
+    print("\nTotal de cidadãos registados:", len(cidadaos))
+
+# -------------------------------------------------
+# PROGRAMA PRINCIPAL
+# -------------------------------------------------
+
+def main():
+    while True:
+        mostrar_menu()
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            adicionar_cidadao()
+
+        elif opcao == "2":
+            remover_cidadao()
+
+        elif opcao == "3":
+            listar_cidadaos()
+
+        elif opcao == "4":
+            procurar_cidadao()
+
+        elif opcao == "5":
+            ordenar_alfabetico()
+
+        elif opcao == "6":
+            total_registos()
+
+        elif opcao == "7":
+            print("\nPrograma encerrado. Obrigado!")
+            break
+
+        else:
+            print("❌ Opção inválida. Tente novamente.")
+
+# -------------------------------------------------
+# EXECUÇÃO DO PROGRAMA
+# -------------------------------------------------
+
+if __name__ == "__main__":
+    main()
