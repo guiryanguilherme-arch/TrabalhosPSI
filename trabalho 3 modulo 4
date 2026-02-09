@@ -3,8 +3,9 @@ print("        GESTOR DE TURMA - ESCOLA")
 print("==========================================")
 
 # -------------------------------------------------
-# LISTA DE 20 ALUNOS
+# (LISTA DE DICIONÁRIOS)
 # -------------------------------------------------
+# Cada dicionário representa um aluno com suas informações
 alunos = [
     {"nome": "Ana", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Bruno", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
@@ -15,23 +16,24 @@ alunos = [
     {"nome": "Gustavo", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Helena", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Igor", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
-    {"nome": "Juliana", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "João", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Kaio", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Larissa", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Marcos", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Natália", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
-    {"nome": "Otávio", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
-    {"nome": "Paula", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Otavio", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Olivia", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Rafael", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Sabrina", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
     {"nome": "Thiago", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
-    {"nome": "Vanessa", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Ryan", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
 ]
 
 # -------------------------------------------------
-# MENU
+# MENU PRINCIPAL
 # -------------------------------------------------
 def menu():
+    """Exibe as opções do sistema."""
     print("\n=== MENU ===")
     print("1 - Adicionar nota")
     print("2 - Registar falta")
@@ -45,13 +47,11 @@ def menu():
     print("10 - Resultado final do ano")
     print("11 - Sair")
 
-# -------------------------------------------------
-# VALIDAR OPÇÃO DE MENU
-# -------------------------------------------------
 def escolher_opcao_menu():
-    entrada = input("Opção: ")
-    if entrada.isdigit() and 1 <= int(entrada) <= 11:
-        return int(entrada)
+    """Valida se o usuário digitou uma opção entre 1 e 11."""
+    opcao = input("Opção: ")
+    if opcao.isdigit() and 1 <= int(opcao) <= 11:
+        return int(opcao)
     print("Opção inválida! Digite um número de 1 a 11.")
     return 0
 
@@ -59,119 +59,98 @@ def escolher_opcao_menu():
 # ESCOLHER ALUNO
 # -------------------------------------------------
 def escolher_aluno():
-    for numero in range(len(alunos)):
-        print(numero + 1, "-", alunos[numero]["nome"])
-    escolha = input("Escolha o aluno (número): ")
-    if escolha.isdigit():
-        numero_aluno = int(escolha)
-        if 1 <= numero_aluno <= len(alunos):
-            return numero_aluno - 1
-    print("Escolha inválida! Será retornado o primeiro aluno.")
-    return 0
+    """
+    Exibe a lista de alunos e força o usuário a escolher um número válido.
+    Não retorna automaticamente o primeiro aluno, apenas repete até entrada correta.
+    """
+    while True:
+        for i in range(len(alunos)):
+            print(i + 1, "-", alunos[i]["nome"])
+        escolha = input("Escolha o número do aluno: ")
+        if escolha.isdigit():
+            indice = int(escolha) - 1
+            if 0 <= indice < len(alunos):
+                return indice  # Retorna o índice válido
+        print("Escolha inválida! Tente novamente.")
 
 # -------------------------------------------------
-# CALCULAR MÉDIA DE UM ALUNO
+# FUNÇÕES AUXILIARES
 # -------------------------------------------------
 def calcular_media_aluno(aluno):
+    """Calcula a média do aluno. Retorna 0 se não houver notas."""
     if aluno["notas"]:
         return sum(aluno["notas"]) / len(aluno["notas"])
     return 0
 
 # -------------------------------------------------
-# ADICIONAR NOTA
+# FUNCIONALIDADES
 # -------------------------------------------------
 def adicionar_nota():
-    while True:
-        print("\nLista de alunos:")
-        for indice in range(len(alunos)):
-            print(indice + 1, "-", alunos[indice]["nome"])
+    indice = escolher_aluno()
+    entrada = input("Digite a nota (0 a 20): ")
+    try:
+        nota = float(entrada)
+        if 0 <= nota <= 20:
+            alunos[indice]["notas"].append(nota)
+            print(" Nota adicionada!")
+        else:
+            print("⚠ Nota inválida! Deve ser entre 0 e 20.")
+    except ValueError:
+        print("Erro: Digite um número válido.")
 
-        escolha_utilizador = input("Escolha o número do aluno: ")
-
-        if escolha_utilizador.isdigit():
-            numero_aluno = int(escolha_utilizador)
-            if 1 <= numero_aluno <= len(alunos):
-                return numero_aluno - 1
-
-        print(" Escolha inválida. Tente novamente.")
-
-# -------------------------------------------------
-# REGISTAR FALTA
-# -------------------------------------------------
 def registar_falta():
     aluno = alunos[escolher_aluno()]
     aluno["faltas"] += 1
-    print("Falta registada!")
+    print(f" Falta registada para {aluno['nome']}!")
 
-# -------------------------------------------------
-# JUSTIFICAR FALTA
-# -------------------------------------------------
 def justificar_falta():
     aluno = alunos[escolher_aluno()]
     if aluno["faltas"] > 0:
         justificativa = input("Justificativa da falta: ")
-        if justificativa != "":
+        if justificativa:
             aluno["justificativas"].append(justificativa)
             aluno["faltas"] -= 1
-            print("Falta justificada!")
+            print("✅ Falta justificada!")
         else:
-            print("Justificativa vazia! Falta não foi justificada.")
+            print("⚠️ Justificativa vazia! Operação cancelada.")
     else:
-        print("Este aluno não tem faltas.")
+        print("ℹ️ Este aluno não tem faltas para justificar.")
 
-# -------------------------------------------------
-# ATUALIZAR COMPORTAMENTO
-# -------------------------------------------------
 def atualizar_comportamento():
     aluno = alunos[escolher_aluno()]
     observacao = input("Nova observação de comportamento: ")
-    if observacao != "":
+    if observacao:
         aluno["comportamento"] = observacao
-        print("Comportamento atualizado!")
-    else:
-        print("Observação vazia! O comportamento não foi alterado.")
+        print("✅ Comportamento atualizado!")
 
-# -------------------------------------------------
-# VER BOLETIM
-# -------------------------------------------------
 def boletim():
     aluno = alunos[escolher_aluno()]
     media = calcular_media_aluno(aluno)
-    print("\n=== BOLETIM DO ALUNO ===")
-    print("Aluno:", aluno["nome"])
-    print("Notas:", aluno["notas"])
-    print("Média:", round(media, 2))
-    print("Faltas:", aluno["faltas"])
-    print("Justificativas:", aluno["justificativas"])
-    print("Comportamento:", aluno["comportamento"])
+    print("\n" + "=" * 25)
+    print(f"ALUNO: {aluno['nome']}")
+    print(f"NOTAS: {aluno['notas']}")
+    print(f"MÉDIA: {media:.2f}")
+    print(f"FALTAS: {aluno['faltas']}")
+    print(f"COMPORTAMENTO: {aluno['comportamento']}")
+    print("=" * 25)
 
-# -------------------------------------------------
-# LISTAR TURMA
-# -------------------------------------------------
 def listar_turma():
-    print("\n=== TURMA COMPLETA ===")
+    print("\n=== LISTAGEM DA TURMA ===")
     for aluno in alunos:
         media = calcular_media_aluno(aluno)
-        print(aluno["nome"], "- Média:", round(media, 2), "- Faltas:", aluno["faltas"])
+        print(f"{aluno['nome']:<10} | Média: {media:>5.2f} | Faltas: {aluno['faltas']}")
 
-# -------------------------------------------------
-# MÉDIA GERAL DA TURMA
-# -------------------------------------------------
 def media_geral():
-    soma = sum(calcular_media_aluno(aluno) for aluno in alunos)
-    print("Média geral da turma:", round(soma / len(alunos), 2))
+    if not alunos: return
+    medias = [calcular_media_aluno(a) for a in alunos]
+    geral = sum(medias) / len(alunos)
+    print(f"\nMédia Geral da Turma: {geral:.2f}")
 
-
-# -------------------------------------------------
-# SIMULAR SEMESTRE
-# -------------------------------------------------
 def simular_semestre(numero):
     aluno = alunos[escolher_aluno()]
-
     if not aluno["notas"]:
-        print("\nEste aluno ainda não tem notas. Percurso não feito.")
+        print(" Sem notas para simular.")
         return
-
     media = calcular_media_aluno(aluno)
     faltas = aluno["faltas"]
 
@@ -183,72 +162,55 @@ def simular_semestre(numero):
         situacao = "REPROVADO"
 
     aluno[f"resultado_{numero}_semestre"] = situacao
-    print(f"\n=== RESULTADO {numero}º SEMESTRE ===")
-    print("Aluno:", aluno["nome"])
-    print("Média:", round(media, 2))
-    print("Faltas:", faltas)
-    print("Situação:", situacao)
+    print(f"\nSituação no {numero}º Semestre: {situacao}")
 
-
-# -------------------------------------------------
-# RESULTADO FINAL DO ANO
-# -------------------------------------------------
 def resultado_final_ano():
     aluno = alunos[escolher_aluno()]
-    primeiro = aluno.get("resultado_1_semestre")
-    segundo = aluno.get("resultado_2_semestre")
-
-    if not primeiro and not segundo:
-        print("\nEste aluno ainda não completou nenhum semestre. Percurso não feito.")
-        return
-    if not primeiro:
-        primeiro = "Percurso não feito"
-    if not segundo:
-        segundo = "Percurso não feito"
+    primeiro = aluno.get("resultado_1_semestre", "Não realizado")
+    segundo = aluno.get("resultado_2_semestre", "Não realizado")
 
     if primeiro == "APROVADO" and segundo == "APROVADO":
-        final = "APROVADO"
-    elif primeiro == "REPROVADO" or segundo == "REPROVADO":
-        final = "REPROVADO"
-    elif primeiro == "Percurso não feito" or segundo == "Percurso não feito":
-        final = "Percurso não concluído"
+        final = "APROVADO FINAL"
+    elif "REPROVADO" in [primeiro, segundo]:
+        final = "REPROVADO NO ANO"
+    elif "Não realizado" in [primeiro, segundo]:
+        final = "AGUARDANDO CONCLUSÃO"
     else:
-        final = "RECUPERAÇÃO"
+        final = "RECUPERAÇÃO FINAL"
 
-    print("\n=== RESULTADO FINAL DO ANO ===")
-    print("Aluno:", aluno["nome"])
-    print("1º Semestre:", primeiro)
-    print("2º Semestre:", segundo)
-    print("Resultado Final:", final)
-
+    print(f"\nRESULTADO FINAL: {final}")
 
 # -------------------------------------------------
-# PROGRAMA PRINCIPAL
+# LOOP PRINCIPAL
 # -------------------------------------------------
-while True:
-    menu()
-    opcao = escolher_opcao_menu()
+def main():
+    while True:
+        menu()
+        opcao = escolher_opcao_menu()
 
-    if opcao == 1:
-        adicionar_nota()
-    elif opcao == 2:
-        registar_falta()
-    elif opcao == 3:
-        justificar_falta()
-    elif opcao == 4:
-        atualizar_comportamento()
-    elif opcao == 5:
-        boletim()
-    elif opcao == 6:
-        listar_turma()
-    elif opcao == 7:
-        media_geral()
-    elif opcao == 8:
-        simular_semestre(1)
-    elif opcao == 9:
-        simular_semestre(2)
-    elif opcao == 10:
-        resultado_final_ano()
-    elif opcao == 11:
-        print("Programa encerrado.")
-        break
+        if opcao == 1:
+            adicionar_nota()
+        elif opcao == 2:
+            registar_falta()
+        elif opcao == 3:
+            justificar_falta()
+        elif opcao == 4:
+            atualizar_comportamento()
+        elif opcao == 5:
+            boletim()
+        elif opcao == 6:
+            listar_turma()
+        elif opcao == 7:
+            media_geral()
+        elif opcao == 8:
+            simular_semestre(1)
+        elif opcao == 9:
+            simular_semestre(2)
+        elif opcao == 10:
+            resultado_final_ano()
+        elif opcao == 11:
+            print("Saindo... Até logo!")
+            break
+
+if __name__ == "__main__":
+    main()
