@@ -1,0 +1,254 @@
+print("==========================================")
+print("        GESTOR DE TURMA - ESCOLA")
+print("==========================================")
+
+# -------------------------------------------------
+# LISTA DE 20 ALUNOS
+# -------------------------------------------------
+alunos = [
+    {"nome": "Ana", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Bruno", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Carla", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Daniel", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Eduardo", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Fernanda", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Gustavo", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Helena", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Igor", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Juliana", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Kaio", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Larissa", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Marcos", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Natália", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Otávio", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Paula", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Rafael", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Sabrina", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Thiago", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+    {"nome": "Vanessa", "notas": [], "faltas": 0, "justificativas": [], "comportamento": "Sem observações"},
+]
+
+# -------------------------------------------------
+# MENU
+# -------------------------------------------------
+def menu():
+    print("\n=== MENU ===")
+    print("1 - Adicionar nota")
+    print("2 - Registar falta")
+    print("3 - Justificar falta")
+    print("4 - Atualizar comportamento")
+    print("5 - Ver boletim")
+    print("6 - Listar turma")
+    print("7 - Média geral da turma")
+    print("8 - Simular 1º semestre")
+    print("9 - Simular 2º semestre")
+    print("10 - Resultado final do ano")
+    print("11 - Sair")
+
+# -------------------------------------------------
+# VALIDAR OPÇÃO DE MENU
+# -------------------------------------------------
+def escolher_opcao_menu():
+    entrada = input("Opção: ")
+    if entrada.isdigit() and 1 <= int(entrada) <= 11:
+        return int(entrada)
+    print("Opção inválida! Digite um número de 1 a 11.")
+    return 0
+
+# -------------------------------------------------
+# ESCOLHER ALUNO
+# -------------------------------------------------
+def escolher_aluno():
+    for numero in range(len(alunos)):
+        print(numero + 1, "-", alunos[numero]["nome"])
+    escolha = input("Escolha o aluno (número): ")
+    if escolha.isdigit():
+        numero_aluno = int(escolha)
+        if 1 <= numero_aluno <= len(alunos):
+            return numero_aluno - 1
+    print("Escolha inválida! Será retornado o primeiro aluno.")
+    return 0
+
+# -------------------------------------------------
+# CALCULAR MÉDIA DE UM ALUNO
+# -------------------------------------------------
+def calcular_media_aluno(aluno):
+    if aluno["notas"]:
+        return sum(aluno["notas"]) / len(aluno["notas"])
+    return 0
+
+# -------------------------------------------------
+# ADICIONAR NOTA
+# -------------------------------------------------
+def adicionar_nota():
+    while True:
+        print("\nLista de alunos:")
+        for indice in range(len(alunos)):
+            print(indice + 1, "-", alunos[indice]["nome"])
+
+        escolha_utilizador = input("Escolha o número do aluno: ")
+
+        if escolha_utilizador.isdigit():
+            numero_aluno = int(escolha_utilizador)
+            if 1 <= numero_aluno <= len(alunos):
+                return numero_aluno - 1
+
+        print(" Escolha inválida. Tente novamente.")
+
+# -------------------------------------------------
+# REGISTAR FALTA
+# -------------------------------------------------
+def registar_falta():
+    aluno = alunos[escolher_aluno()]
+    aluno["faltas"] += 1
+    print("Falta registada!")
+
+# -------------------------------------------------
+# JUSTIFICAR FALTA
+# -------------------------------------------------
+def justificar_falta():
+    aluno = alunos[escolher_aluno()]
+    if aluno["faltas"] > 0:
+        justificativa = input("Justificativa da falta: ")
+        if justificativa != "":
+            aluno["justificativas"].append(justificativa)
+            aluno["faltas"] -= 1
+            print("Falta justificada!")
+        else:
+            print("Justificativa vazia! Falta não foi justificada.")
+    else:
+        print("Este aluno não tem faltas.")
+
+# -------------------------------------------------
+# ATUALIZAR COMPORTAMENTO
+# -------------------------------------------------
+def atualizar_comportamento():
+    aluno = alunos[escolher_aluno()]
+    observacao = input("Nova observação de comportamento: ")
+    if observacao != "":
+        aluno["comportamento"] = observacao
+        print("Comportamento atualizado!")
+    else:
+        print("Observação vazia! O comportamento não foi alterado.")
+
+# -------------------------------------------------
+# VER BOLETIM
+# -------------------------------------------------
+def boletim():
+    aluno = alunos[escolher_aluno()]
+    media = calcular_media_aluno(aluno)
+    print("\n=== BOLETIM DO ALUNO ===")
+    print("Aluno:", aluno["nome"])
+    print("Notas:", aluno["notas"])
+    print("Média:", round(media, 2))
+    print("Faltas:", aluno["faltas"])
+    print("Justificativas:", aluno["justificativas"])
+    print("Comportamento:", aluno["comportamento"])
+
+# -------------------------------------------------
+# LISTAR TURMA
+# -------------------------------------------------
+def listar_turma():
+    print("\n=== TURMA COMPLETA ===")
+    for aluno in alunos:
+        media = calcular_media_aluno(aluno)
+        print(aluno["nome"], "- Média:", round(media, 2), "- Faltas:", aluno["faltas"])
+
+# -------------------------------------------------
+# MÉDIA GERAL DA TURMA
+# -------------------------------------------------
+def media_geral():
+    soma = sum(calcular_media_aluno(aluno) for aluno in alunos)
+    print("Média geral da turma:", round(soma / len(alunos), 2))
+
+
+# -------------------------------------------------
+# SIMULAR SEMESTRE
+# -------------------------------------------------
+def simular_semestre(numero):
+    aluno = alunos[escolher_aluno()]
+
+    if not aluno["notas"]:
+        print("\nEste aluno ainda não tem notas. Percurso não feito.")
+        return
+
+    media = calcular_media_aluno(aluno)
+    faltas = aluno["faltas"]
+
+    if media >= 10 and faltas <= 5:
+        situacao = "APROVADO"
+    elif media >= 7:
+        situacao = "RECUPERAÇÃO"
+    else:
+        situacao = "REPROVADO"
+
+    aluno[f"resultado_{numero}_semestre"] = situacao
+    print(f"\n=== RESULTADO {numero}º SEMESTRE ===")
+    print("Aluno:", aluno["nome"])
+    print("Média:", round(media, 2))
+    print("Faltas:", faltas)
+    print("Situação:", situacao)
+
+
+# -------------------------------------------------
+# RESULTADO FINAL DO ANO
+# -------------------------------------------------
+def resultado_final_ano():
+    aluno = alunos[escolher_aluno()]
+    primeiro = aluno.get("resultado_1_semestre")
+    segundo = aluno.get("resultado_2_semestre")
+
+    if not primeiro and not segundo:
+        print("\nEste aluno ainda não completou nenhum semestre. Percurso não feito.")
+        return
+    if not primeiro:
+        primeiro = "Percurso não feito"
+    if not segundo:
+        segundo = "Percurso não feito"
+
+    if primeiro == "APROVADO" and segundo == "APROVADO":
+        final = "APROVADO"
+    elif primeiro == "REPROVADO" or segundo == "REPROVADO":
+        final = "REPROVADO"
+    elif primeiro == "Percurso não feito" or segundo == "Percurso não feito":
+        final = "Percurso não concluído"
+    else:
+        final = "RECUPERAÇÃO"
+
+    print("\n=== RESULTADO FINAL DO ANO ===")
+    print("Aluno:", aluno["nome"])
+    print("1º Semestre:", primeiro)
+    print("2º Semestre:", segundo)
+    print("Resultado Final:", final)
+
+
+# -------------------------------------------------
+# PROGRAMA PRINCIPAL
+# -------------------------------------------------
+while True:
+    menu()
+    opcao = escolher_opcao_menu()
+
+    if opcao == 1:
+        adicionar_nota()
+    elif opcao == 2:
+        registar_falta()
+    elif opcao == 3:
+        justificar_falta()
+    elif opcao == 4:
+        atualizar_comportamento()
+    elif opcao == 5:
+        boletim()
+    elif opcao == 6:
+        listar_turma()
+    elif opcao == 7:
+        media_geral()
+    elif opcao == 8:
+        simular_semestre(1)
+    elif opcao == 9:
+        simular_semestre(2)
+    elif opcao == 10:
+        resultado_final_ano()
+    elif opcao == 11:
+        print("Programa encerrado.")
+        break
