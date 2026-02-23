@@ -1,0 +1,42 @@
+# ----------------------------
+# SEÇÕES DA LOJA
+# ----------------------------
+secoes = ["Games", "Tecnologia", "TV", "Livros", "Filmes", "Música", "Casa"]
+
+# ----------------------------
+# PRODUTOS
+# Cada produto: (ID, Nome, Secção, Preço, Stock)
+# ----------------------------
+produtos = [
+    (1, "PlayStation 5", "Games", 499.99, 5),
+    (2, "Nintendo Switch", "Games", 299.99, 8),
+    (3, "Xbox Series X", "Games", 499.99, 4),
+    (4, "FIFA 27", "Games", 99.99, 20),
+    (5, "The Last of Us Part II", "Games", 69.99, 12),
+
+    (6, "iPhone 15", "Tecnologia", 999.99, 6),
+    (7, "Samsung Galaxy S23", "Tecnologia", 899.99, 5),
+    (8, "MacBook Air", "Tecnologia", 1199.99, 3),
+    (9, "AirPods Pro", "Tecnologia", 199.99, 14),
+    (10, "Kindle Paperwhite", "Tecnologia", 129.99, 9),
+
+    (11, "Smart TV LG 55\"", "TV", 699.99, 7),
+    (12, "Smart TV Samsung 65\"", "TV", 899.99, 4),
+    (13, "Projetor 4K", "TV", 499.99, 2),
+
+    (14, "Harry Potter Box", "Livros", 99.99, 15),
+    (15, "Senhor dos Anéis", "Livros", 25.99, 10),
+    (16, "1984 - George Orwell", "Livros", 14.99, 20),
+
+    (17, "Matrix 4K Blu-ray", "Filmes", 29.99, 8),
+    (18, "Avengers: Endgame Steelbook", "Filmes", 39.99, 6),
+    (19, "Titanic Blu-ray", "Filmes", 19.99, 12),
+
+    (20, "Abbey Road - The Beatles", "Música", 19.99, 10),
+    (21, "Thriller - Michael Jackson", "Música", 17.99, 7),
+    (22, "Random Access Memories - Daft Punk", "Música", 22.99, 5),
+
+    (23, "Liquidificador KitchenAid", "Casa", 149.99, 6),
+    (24, "Aspirador Dyson V15", "Casa", 499.99, 3),
+    (25, "Cafeteira Nespresso", "Casa", 199.99, 8)
+]
